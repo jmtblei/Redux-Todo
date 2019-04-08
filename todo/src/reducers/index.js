@@ -20,7 +20,7 @@ const reducer = (state = initialState, action) => {
     switch (action.type) {
         case ADD_TODO:
             const newthingsTodo = {
-                thingsTodo: action.payload,
+                todo: action.payload,
                 completed: false,
                 id: Date.now()
             };

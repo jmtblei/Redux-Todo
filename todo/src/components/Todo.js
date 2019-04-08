@@ -7,6 +7,21 @@ class Todo extends React.Component {
         newTodo: ""
     };
 
+    handleChange = e => {
+        this.setState({ newTodo: e.target.value });
+    };
+    
+    addTodoToList = e => {
+        e.preventDefault();
+        this.props.addTodo(this.state.newTodo);
+        console.log(this.state.newTodo);
+        this.setState({ newTodo: "" });
+    };
+    
+    toggleCompleted = id => {
+        this.props.toggleCompleted(id);
+    };
+
     render() {
         return (
             <>
@@ -14,7 +29,9 @@ class Todo extends React.Component {
                     <h2>My Todo List</h2>
                     {this.props.todoList.map(task => (
                     <div key={task.id}>
-                        <h4>
+                        <h4 onClick={() => this.toggleCompleted(task.id)}
+                            style={{ textDecoration: task.completed ? 'line-through' : 'none' }}
+                        >
                             {task.todo}
                         </h4>
                     </div>
@@ -24,8 +41,11 @@ class Todo extends React.Component {
                     <input 
                     type="text"
                     placeholder="What do I need to do..?"
+                    name="newTodo"
+                    value={this.state.newTodo}
+                    onChange={this.handleChange}
                     />
-                    <button>Add To List</button>
+                    <button onClick={this.addTodoToList}>Add To List</button>
                 </div>
             </>
         )
